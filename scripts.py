@@ -17,9 +17,10 @@ def remove_chastisements(schoolkid_full_name: str):
 
 
 def create_commendation(schoolkid_full_name: str, subject_title: str):
+    commendation_variants = ['хвалю', 'восхваляю', 'красавчик', 'молодец', 'просто гений']
     schoolkid = Schoolkid.objects.get(full_name__contains=schoolkid_full_name)
     lesson = Lesson.objects.filter(subject__title__contains=subject_title,
                                    subject__year_of_study=schoolkid.year_of_study).last()
     Commendation.objects.create(schoolkid=schoolkid, subject=lesson.subject,
                                 teacher=lesson.teacher, created=lesson.date,
-                                text='хвалю')
+                                text=random.choice(commendation_variants))
